@@ -27,7 +27,14 @@ This project is a simple RESTful API endpoint that returns profile information a
 
 ### Prerequisites
 
-- [Go](https://golang.org/dl/) installed on your machine.
+- [Go](https://golang.org/dl/) (version 1.18 or higher) installed on your machine.
+
+### Dependencies
+
+This project uses the following Go modules:
+
+- `github.com/gin-gonic/gin`: A popular Go web framework.
+- `github.com/gin-contrib/cors`: Gin middleware for CORS.
 
 ### Installation
 
@@ -38,11 +45,12 @@ This project is a simple RESTful API endpoint that returns profile information a
     ```
 
 2.  **Install dependencies:**
+    The Go modules system will automatically download the required dependencies when you build or run the project. To install them manually, you can run:
     ```bash
     go mod tidy
     ```
 
-## Running the Application
+## Running the Application Locally
 
 To run the application locally, use the following command:
 
@@ -50,7 +58,29 @@ To run the application locally, use the following command:
 go run main.go
 ```
 
-The server will start on `http://localhost:8080`.
+The server will start on `http://localhost:8080`. You can access the endpoint at `http://localhost:8080/me`.
+
+## Deployment on DigitalOcean
+
+This application is a self-contained Go executable and can be easily deployed to a DigitalOcean droplet.
+
+1.  **Build the binary:**
+    To create a production build, run the following command. This will create a binary named `dynamic-profile-endpoint` in your project directory.
+    ```bash
+    go build -o dynamic-profile-endpoint
+    ```
+
+2.  **Upload the binary to your droplet:**
+    You can use `scp` to upload the binary to your DigitalOcean droplet.
+    ```bash
+    scp dynamic-profile-endpoint user@your_droplet_ip:~/
+    ```
+
+3.  **Run the application on your droplet:**
+    SSH into your droplet and run the binary. You might want to use a process manager like `systemd` or `supervisor` to run the application as a service.
+    ```bash
+    ./dynamic-profile-endpoint
+    ```
 
 ## API Endpoint
 
@@ -68,7 +98,7 @@ The server will start on `http://localhost:8080`.
       "name": "Wisdom Udoye",
       "stack": "Go/Gin"
     },
-    "timestamp": "2025-10-16T20:09:30.123456789Z",
+    "timestamp": "2025-10-17T00:00:00.000000000Z",
     "fact": "A cat can travel at a top speed of approximately 31 mph (49 km) over a short distance."
   }
   ```
